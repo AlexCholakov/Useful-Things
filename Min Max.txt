@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _2266
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            const int maxElements = 50;
+            Console.WriteLine("Insert the number of elements in the array:");
+            int arrayElements = int.Parse(Console.ReadLine());
+            if (arrayElements>maxElements)
+            {
+                Console.WriteLine("You have insertede more than the allowed elements!");
+                return;
+            }
+            int max = 0; int min = 0;
+            int[] number = new int[maxElements];
+            for (int i = 0; i < arrayElements; i++)
+            {
+                Console.WriteLine("Number[{0}]", i+1);
+                number[i] = int.Parse(Console.ReadLine());
+                if (number[i] == number[0])
+                {
+                    min = number[0];
+                    max = number[0];
+                }
+                if (min>number[i])
+                {
+                    min = number[i];
+                }
+                if (max<number[i])
+                {
+                    max = number[i];
+                }
+            }
+            Console.WriteLine("The min is {0} and the max is {1}", min, max);
+        }
+    }
+}
