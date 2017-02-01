@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ConfigureMyAuto
+{
+    public partial class Form1 : Form
+    {
+        int basePrice = 0;
+        double Discount = 0;
+        int absPrice = 0;
+        int lightsPrice = 0;
+        int chainsPrice = 0;
+        double finalPrice = 0;
+        int fullPrice = 0;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdCivic_CheckedChanged(object sender, EventArgs e)
+        {
+            pbCar.Image = ConfigureMyAuto.Properties.Resources.Civic;
+            basePrice = 25000;
+            lbBasePrice.Text = basePrice.ToString();
+        }
+
+        private void rdMazda3_CheckedChanged(object sender, EventArgs e)
+        {
+            pbCar.Image = ConfigureMyAuto.Properties.Resources.Mazda3;
+            basePrice = 28000;
+            lbBasePrice.Text = basePrice.ToString();
+        }
+
+        private void rdAccord_CheckedChanged(object sender, EventArgs e)
+        {
+            pbCar.Image = ConfigureMyAuto.Properties.Resources.Accord2;
+            basePrice = 35000;
+            lbBasePrice.Text = basePrice.ToString();
+        }
+
+        private void btCalculate_Click(object sender, EventArgs e)
+        {
+            Discount = 0;
+            if (rbCash.Checked)
+            {
+                Discount = 0.05;
+                lbDiscount.Text = "5%";
+            }
+            else lbDiscount.Text = "0%";
+            if (cbABS.Checked && cbChains.Checked && cbFogLights.Checked)
+            {
+                Discount = 0.1;
+                lbDiscount.Text = "10%";
+                if (rbCash.Checked)
+                {
+                    Discount = 0.15;
+                    lbDiscount.Text = "15%";
+                }
+
+
+            }
+            else if (rbCash.Checked) lbDiscount.Text = "5%";
+            else lbDiscount.Text = "0%";
+
+            if (cbABS.Checked) absPrice = 300; else absPrice = 0;
+            if (cbChains.Checked) chainsPrice = 150; else chainsPrice = 0;
+            if (cbFogLights.Checked) lightsPrice = 180; else lightsPrice = 0;
+            fullPrice = basePrice + absPrice + chainsPrice + lightsPrice;
+            finalPrice = fullPrice - (Discount * fullPrice);
+            lbFinalPrice.Text = finalPrice.ToString();
+            
+        }
+
+        private void cbABS_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cbFogLights_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbChains_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btClear_Click(object sender, EventArgs e)
+        {
+            lbBasePrice.Text = "";
+            lbDiscount.Text = "";
+            lbFinalPrice.Text = "";
+        }
+
+        private void pbCar_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

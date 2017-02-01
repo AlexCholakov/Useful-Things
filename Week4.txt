@@ -1,0 +1,223 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace CRUDListBoxes
+{
+    public partial class CRUDListBoxes : Form
+    {
+
+        List<string> data = new List<string>();
+        string input = null;
+        public CRUDListBoxes()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btAdd_Click(object sender, EventArgs e)
+        {
+            input = tbInput.Text.Trim();
+            if (input != String.Empty)
+            {
+                data.Add(input);
+                lbItems.Items.AddRange(data.ToArray());
+                tbInput.Text = "";
+                data.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Please enter an item name");
+            }
+        }
+
+        private void btRemove_Click(object sender, EventArgs e)
+        {
+            if (lbItems.SelectedIndex != -1)
+            {
+                lbItems.Items.RemoveAt(lbItems.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Please select an entry!");
+            }
+        }
+
+        private void btRemoveAll_Click(object sender, EventArgs e)
+        {
+            lbItems.Items.Clear();
+        }
+
+        private void btUpdate_Click(object sender, EventArgs e)
+        {
+            if (lbItems.SelectedIndex != -1 && tbInput.Text != string.Empty)
+            {
+
+                lbItems.Items.Insert(lbItems.SelectedIndex, tbInput.Text);
+                lbItems.Items.RemoveAt(lbItems.SelectedIndex);
+
+            }
+            else
+            {
+                MessageBox.Show("No item/text is present");
+            }
+        }
+
+        private void btSort_Click(object sender, EventArgs e)
+        {
+            lbItems.Sorted = true;
+        }
+
+        private void btSearch_Click(object sender, EventArgs e)
+        {
+            string searchedItem = null;
+            int count = 0;
+            searchedItem = tbInput.Text.Trim();
+            if (searchedItem != string.Empty)
+            {
+                for (int i = 0; i < lbItems.Items.Count; i++)
+                {
+                    if (searchedItem == lbItems.Items[i].ToString())
+                    {
+                        MessageBox.Show("A match has been found!");
+                        lbItems.SelectedItem = lbItems.Items[i];
+                        count++;
+                    }
+                    
+                }
+                if (count==0)
+                {
+                    MessageBox.Show("No matches have been found!");   
+                }
+            }
+            else
+            {
+                MessageBox.Show("Enter something");
+            }
+        }
+
+    }
+}
+
+____________________________________________________________________________________________________________________________
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PositionChanger
+{
+    public partial class PositionChanger : Form
+    {
+        public PositionChanger()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && tbInput.Text.Trim() != string.Empty)
+            {
+                string newItem = null;
+                newItem = tbInput.Text.Trim();
+                lbSymbols.Items.Add(newItem);
+                tbInput.Text = "";
+            }
+        }
+
+        private void btRemove_Click(object sender, EventArgs e)
+        {
+            if (lbSymbols.SelectedIndex != -1)
+            {
+                lbSymbols.Items.RemoveAt(lbSymbols.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Please select an entry!");
+            }
+        }
+
+        private void btTop_Click(object sender, EventArgs e)
+        {
+
+            if (lbSymbols.SelectedIndex != -1)
+            {
+                lbSymbols.Items.Insert(0, lbSymbols.SelectedItem);
+                lbSymbols.Items.RemoveAt(lbSymbols.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Please select an item");
+            }
+        }
+
+        private void btBottom_Click(object sender, EventArgs e)
+        {
+            if (lbSymbols.SelectedIndex != -1)
+            {
+                lbSymbols.Items.Insert(lbSymbols.Items.Count, lbSymbols.SelectedItem);
+                lbSymbols.Items.RemoveAt(lbSymbols.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Please select an item! ");
+            }
+        }
+
+        private void btOneUp_Click(object sender, EventArgs e)
+        {
+
+            if (lbSymbols.SelectedIndex > 0)
+            {
+                lbSymbols.Items.Insert(lbSymbols.SelectedIndex - 1, lbSymbols.SelectedItem);
+                lbSymbols.Items.RemoveAt(lbSymbols.SelectedIndex);
+
+            }
+            else
+            {
+
+                MessageBox.Show("Item is already on top/There is no selected item");
+            }
+        }
+
+
+        private void btOneDown_Click(object sender, EventArgs e)
+        {
+            if (lbSymbols.SelectedIndex >= 0)
+            {
+
+                lbSymbols.Items.Insert(lbSymbols.SelectedIndex + 2, lbSymbols.SelectedItem);
+                lbSymbols.Items.RemoveAt(lbSymbols.SelectedIndex);
+
+            }
+            else
+            {
+                MessageBox.Show("Item is already at the bottom/Please select an item");
+            }
+        }
+
+        private void lbSymbols_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+

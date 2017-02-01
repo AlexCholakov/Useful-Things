@@ -1,0 +1,259 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace GuessTheNumberGame
+{
+    public partial class Form1 : Form
+    {
+        Random rnd = new Random();
+        int number = 0;
+        int counter = 0;
+        
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btPlay_Click(object sender, EventArgs e)
+        {
+            if (cbLevel.SelectedIndex == -1)
+            {
+                
+                MessageBox.Show("Choose a level!");
+            }
+            else
+            {
+                try
+                {
+                    int input = int.Parse(tbInput.Text);
+                    tbInput.Text = "";
+                    if (input > number)
+                    {
+
+                        pbHint.Image = GuessTheNumberGame.Properties.Resources.Arrow_down;
+                        pbResult.Image = null;
+                        counter++;
+                    }
+                    if (input == number)
+                    {
+
+                        pbHint.Image = null;
+                        pbResult.Image = GuessTheNumberGame.Properties.Resources._8bb16c1e0f7f040bedc95daa3a07ccd8_symbol_thumbs_up_clip_art_clipart_for_thumbs_up_1809_1802;
+                        counter = 0;
+                        cbLevel.SelectedIndex = -1;
+
+
+
+
+
+                    }
+                    if (input < number)
+                    {
+
+                        pbHint.Image = GuessTheNumberGame.Properties.Resources.Arrow_up;
+                        pbResult.Image = null;
+                        counter++;
+                    }
+                    if (counter > 10)
+                    {
+
+                        pbResult.Image = GuessTheNumberGame.Properties.Resources.Thumbs_Down_Circle;
+                        pbHint.Image = null;
+
+
+
+
+                    }
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Enter a number");
+                }
+            }
+        }
+
+        private void cbLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbLevel.SelectedIndex)
+            {
+                case 0: number = rnd.Next(1, 11); break;
+                case 1: number = rnd.Next(1,51); break;
+                case 2: number = rnd.Next(1, 101); break;
+                case 3: number = rnd.Next(1, 501); break;
+                case 4: number = rnd.Next(1, 1001); break;   
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        
+  
+
+        
+        
+    }
+}
+
+
+__________________________________________________________________________________________________________________
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace RockScissorsPaper
+{
+    public partial class Form1 : Form
+    {
+        int computerChoice = 0;
+        int counterPlayer = 0;
+        int counterComputer = 0;
+        int playerChoice = 0;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            pbPaper.Image = RockScissorsPaper.Properties.Resources.paper_clip_clipart_black_and_white_clipart_panda_free_clipart_vH7rQH_clipart;
+            pbRock.Image = RockScissorsPaper.Properties.Resources.stone_PNG13561;
+            pbScissors.Image = RockScissorsPaper.Properties.Resources._2000px_Scissors_icon_black_svg;
+
+        }
+
+        private void pbScissors_Click(object sender, EventArgs e)
+        {
+            pbPlayerChoice.Image = RockScissorsPaper.Properties.Resources._2000px_Scissors_icon_black_svg;
+            playerChoice = 3;
+            Score();
+        }
+
+        private void pbRock_Click(object sender, EventArgs e)
+        {
+            pbPlayerChoice.Image = RockScissorsPaper.Properties.Resources.stone_PNG13561;
+            playerChoice = 2;
+            Score();
+        }
+
+        private void pbPaper_Click(object sender, EventArgs e)
+        {
+            pbPlayerChoice.Image = RockScissorsPaper.Properties.Resources.paper_clip_clipart_black_and_white_clipart_panda_free_clipart_vH7rQH_clipart;
+            playerChoice = 1;
+            Score();
+        }
+        private void Score()
+        {
+            Random rnd = new Random();
+            computerChoice = rnd.Next(1, 4);
+            switch (computerChoice)
+            {
+
+                case 1: pbComputerChoice.Image = RockScissorsPaper.Properties.Resources.paper_clip_clipart_black_and_white_clipart_panda_free_clipart_vH7rQH_clipart; break;
+                case 2: pbComputerChoice.Image = RockScissorsPaper.Properties.Resources.stone_PNG13561; break;
+                case 3: pbComputerChoice.Image = RockScissorsPaper.Properties.Resources._2000px_Scissors_icon_black_svg; break;
+                    
+                
+            }
+            // Paper = 1 ; Rock = 2; Scissors = 3;
+            switch (playerChoice)
+            {
+                case 1: 
+                    if (computerChoice == 1)
+                    {
+                        MessageBox.Show("Draw");
+                    }
+                    if (computerChoice == 2)
+                    {
+                        MessageBox.Show("The Player Wins!");
+                        counterPlayer++;
+                    }
+                    if (computerChoice == 3)
+                    {
+                        MessageBox.Show("The Computer Wins");
+                        counterComputer++;
+                    }
+                    break;
+                // Paper = 1 ; Rock = 2; Scissors = 3;
+                case 2: 
+                    if (computerChoice == 1)
+                    {
+                        MessageBox.Show("The Computer Wins");
+                        counterComputer++;
+                    }
+                    if (computerChoice == 2)
+                    {
+                        MessageBox.Show("Draw");
+                        
+                    }
+                    if (computerChoice == 3)
+                    {
+                        MessageBox.Show("The Player Wins");
+                        counterPlayer++;
+                        
+                    }
+                    break;
+                // Paper = 1 ; Rock = 2; Scissors = 3;
+                case 3:  
+                    if (computerChoice == 1)
+                    {
+                        MessageBox.Show("The Player Wins");
+                        counterPlayer++;
+                    }
+                    if (computerChoice == 2)
+                    {
+                        MessageBox.Show("The Computer Wins!");
+                        counterComputer++;
+                    }
+                    if (computerChoice == 3)
+                    {
+                        MessageBox.Show("Draw");
+                        
+                    }
+                    break;
+                    
+            }
+            lbResult.Text = counterPlayer.ToString()+":"+counterComputer.ToString();
+            
+        }
+
+        private void btReset_Click(object sender, EventArgs e)
+        {
+            
+
+            computerChoice = 0;
+            pbComputerChoice.Image = null;
+            pbPlayerChoice.Image = null;
+            lbResult.Text = "0:0";
+            counterComputer = 0;
+            counterPlayer = 0;
+
+        }
+
+        private void pbComputerChoice_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
